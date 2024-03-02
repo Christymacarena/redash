@@ -105,30 +105,35 @@ Lets try to see maximum of it:
 
 1. Time Series Analysis:
 
--Line charts showing trends in Total Quantity and Gross Profit over time (Month) - newplot png
--Stacked bar charts comparing Total Quantity and Gross Profit between the Current Period and Comparative Period. newplot (1)
+-Line charts showing trends in Gross Profit and Total Quantity over last year - newplot png
+-Stacked bar charts comparing Total Quantity and Gross Profit between the last month and previus month newplot (1)
 
 2.Geospatial Analysis:
 
--Geographical heatmaps showing Total Quantity or Gross Profit by Country or State. (didnt work)
--Bubble maps visualizing the distribution of Female Count and Male Count by geographical regions.
+-Geographical heatmaps showing Average Revenue per Transaction by Country
+-Even can be a fancy Bubble map visualizing the distribution of Female Count and Male Count by geographical regions, but we don't hace lat and long:) so next time.
 
 3.Product Category Analysis:
 
-Horizontal bar charts displaying Total Quantity and Gross Profit by Product Category.
-Treemaps representing the hierarchy of Product Categories and Subcategories based on Gross Profit.
-Customer Demographics Analysis:
+-Horizontal bar charts displaying Total Quantity and Gross Profit by Product Category.
+-Treemaps representing the hierarchy of Product Categories and Subcategories based on Gross Profit.
+Buuuuuuuuuut. i dint have Treemap in my version of Redash so i will do suburns sequence
 
-Pie charts illustrating the distribution of Female and Male customers.
-Box plots showcasing the distribution of Average Female Age and Average Male Age across different product categories.
-Comparative Analysis:
+3.Customer Demographics Analysis:
+
+-Pie charts illustrating the distribution of Female and Male customers.
+-Box plots showcasing the distribution of Average Female Age and Average Male Age across different product categories.
+
+4. Comparative Analysis:
 
 Dual-axis line charts comparing Total Quantity and Gross Profit between the Current Period and Comparative Period.
 Side-by-side bar charts displaying Total Quantity and Gross Profit for the Current Period and Comparative Period.
-Overall Performance Metrics:
 
-KPI widgets showing aggregated metrics such as Total Quantity, Gross Profit, Female Count, and Male Count.
+5. Overall Performance Metrics:
+
+-KPI widgets showing aggregated metrics such as Total Quantity, Gross Profit, Female Count, and Male Count.
 Gauges representing the percentage change in Total Quantity and Gross Profit compared to the previous period.
+
 Customer Segmentation:
 
 Scatter plots visualizing the relationship between Gross Profit and Customer Age, segmented by gender.
