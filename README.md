@@ -266,6 +266,8 @@ GROUP BY
     SubCategory
 ORDER BY
     Gross_Profit DESC;
+</details>
+
 
 2.Geospatial Analysis:
 
@@ -310,6 +312,8 @@ FROM
   SequenceCTE
 ORDER BY
   value DESC;
+</details>
+
 
 3.Customer Demographics Analysis:
 
@@ -363,6 +367,8 @@ SELECT
     Total_Male_Quantity AS Total_Quantity
 FROM
     GenderCounts;
+</details>
+
 
 4. Comparative Analysis:
 
@@ -402,6 +408,8 @@ GROUP BY
     Product_Category
 ORDER BY
     Cohort_Month;
+</details>
+
 
 5. Overall Performance Metrics:
 
@@ -413,33 +421,30 @@ Gauges representing the percentage change in Total Quantity and Gross Profit com
 -Scatter plots visualizing the relationship between Gross Profit and Customer Age, segmented by gender.
 -Radar charts comparing the average Gross Profit and Total Quantity for different customer segments.
 
-So straight to conclusions:
+## So let's go straight to conclusions:
 
 
 Customer Demographics:
-
 Majority of customers fall within the age range of 32-45 years, indicating a mature target audience.
 Gender distribution is nearly equal, with approximately 47-53 split between male and female customers.
 The average age of customers across different product categories ranges from 34 to 38 years, with the youngest customers observed in the road bikes category.
-Product Performance:
 
+Product Performance:
 Accessories emerge as the largest category of goods sold, with notable popularity in subcategories such as tires and tubes, and bottles and cages.
 Assessing metrics like Total Quantity, Revenue, and Gross Profit helps identify top-performing products or categories, offering insights into factors driving their success.
 Understanding the relationship between Unit Cost, Unit Price, and Gross Profit enables optimization of pricing strategies to enhance profitability.
-Geospatial Analysis:
 
+Geospatial Analysis:
 The US leads in terms of quantity of goods sold across all categories, while Germany boasts higher average revenue per transaction, suggesting lucrative market potential.
 Geographical heatmaps visualize revenue or sales distribution across different countries or regions, facilitating targeted marketing efforts.
 Time Series Analysis:
 
 The business witnessed significant improvement from 2015 to 2016, with Gross Profit turning consistently positive over time.
-Tracking trends in Total Quantity, Revenue, and Gross Profit helps identify seasonal patterns and long-term growth trends, enabling proactive business decisions.
-Customer Segmentation:
-
+Tracking trends in Total Quantity, Revenue, and Gross Profit helps identify seasonal patterns and long-term growth trends, enabling proactive business decisions.Customer Segmentation:
 Despite limited data, the gender distribution analysis provides insights into customer demographics, aiding in personalized marketing campaigns.
 Analyzing customer retention rates and lifetime value guides prioritization of customer acquisition and retention strategies.
-Cost Analysis:
 
+Cost Analysis:
 Evaluating cost distribution across product categories helps identify areas for cost optimization and potential cost-saving opportunities.
 Products with high margins and low production costs should be prioritized in marketing efforts to maximize profitability and cost-effectiveness.
 In summary, leveraging insights from customer demographics, product performance, geospatial analysis, time series analysis, customer segmentation, and cost analysis enables data-driven decision-making and strategic planning for business growth and profitability.
