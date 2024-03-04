@@ -129,6 +129,8 @@ ORDER BY
 
 </details>
 
+<!-- Your additional text goes here -->
+
 ## Visualizing Insights
 
 Armed with aggregated values and diverse timelines, I embarked on a journey of visualization, unlocking a wealth of insights.
