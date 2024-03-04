@@ -1,4 +1,7 @@
 # Redash Portfolio Project 
+Here is the dashboard we built, [watch and enjoy](http://localhost:5000/public/dashboards/c5ojCwJIpz885OpA5ALjdUjjhpkzqV6DLoSoT1c2?org_slug=default).
+
+For those who have some time, here how it was..
 
 ## Introduction
 
@@ -20,7 +23,7 @@ My journey into data visualization began with PostgreSQL, my trusted companion i
 
 Determined to explore the full spectrum of possibilities, I ventured into Clickhouse. Overcoming challenges with URL and CURL configurations, I triumphed in establishing a seamless connection.
 
-<img src="https://github.com/Christymacarena/redash/assets/110884096/68f2e93c-412e-40c7-9475-9c3b6da1a9ee" alt="Connect to Clickhouse" width="50%">
+<img src="https://github.com/Christymacarena/redash/assets/110884096/68f2e93c-412e-40c7-9475-9c3b6da1a9ee" alt="Connect to Clickhouse" width="40%">
 
 ## Crafting the Dashboard
 
@@ -131,36 +134,272 @@ Armed with aggregated values and diverse timelines, I embarked on a journey of v
 
 1. Time Series Analysis:
 
--Line charts showing trends in Gross Profit and Total Quantity over last year - newplot png
--Stacked bar charts comparing Total Quantity and Gross Profit between the last month and previus month newplot (1)
+-Line charts showing trends in Gross Profit and Total Quantity over last year
 
 <details>
   <summary>Click to expand SQL Code</summary>
   
 ```sql
 -- Your SQL code goes here
-SELECT * FROM your_table;
+SELECT
+    toStartOfMonth(toDate(Date)) AS Month,
+    SUM(Quantity) AS Total_Quantity,
+    Country,
+    State,
+    `Product Category` AS PCategory,
+    `Sub Category` AS SubCategory,
+    SUM(Revenue - Cost) AS Gross_Profit, -- Calculate total gross profit
+    SUM(
+        CASE WHEN `Customer Gender` = 'F' THEN 1 ELSE 0 END
+    ) AS Female_Count,
+    AVG(
+        CASE WHEN `Customer Gender` = 'F' THEN `Customer Age` END
+    ) AS Avg_Female_Age,
+    SUM(
+        CASE WHEN `Customer Gender` = 'M' THEN 1 ELSE 0 END
+    ) AS Male_Count,
+    AVG(
+        CASE WHEN `Customer Gender` = 'M' THEN `Customer Age` END
+    ) AS Avg_Male_Age
+FROM
+    default.salesforcourse_4fe2kehu
+WHERE 
+    toStartOfMonth(toDate(Date)) BETWEEN '{{ dates.start }}' AND '{{ dates.end }}'
+GROUP BY
+    Month,
+    Country,
+    State,
+    PCategory, 
+    SubCategory
+ORDER BY
+    Gross_Profit DESC;
+
+-Stacked bar charts comparing Total Quantity and Gross Profit between the last month and previus month
+
+<details>
+  <summary>Click to expand SQL Code</summary>
+  
+```sql
+-- Your SQL code goes here
+SELECT
+    toStartOfMonth(toDate(Date)) AS Month,
+    multiIf(
+        '{{ cmp }}' = 'No', 
+            if(
+                toStartOfMonth(toDate(Date)) BETWEEN '{{ dates.start }}' AND '{{ dates.end }}', 
+                'Current period', 
+                'Comparative period'
+            ),
+        '{{ cmp }}' = 'With last month', 
+            if(
+                (toDate(addMonths(Date, -1)) BETWEEN '{{ dates.start }}' AND '{{ dates.end }}') 
+                OR 
+                ( toStartOfMonth(toDate(Date)) BETWEEN '{{ dates.start }}' AND '{{ dates.end }}'), 
+                'Current period', 
+                'Comparative period'
+            ),
+        NULL
+    ) AS Comparing,
+    SUM(Quantity) AS Total_Quantity,
+    Country,
+    State,
+    `Product Category` AS PCategory,
+    `Sub Category` AS SubCategory,
+    SUM(Revenue) - SUM(Cost) AS Gross_Profit,
+    SUM(
+        CASE
+            WHEN `Customer Gender` = 'F' THEN 1
+            ELSE 0
+        END
+    ) AS Female_Count,
+    AVG(
+        CASE
+            WHEN `Customer Gender` = 'F' THEN `Customer Age`
+        END
+    ) AS Avg_Female_Age,
+    SUM(
+        CASE
+            WHEN `Customer Gender` = 'M' THEN 1
+            ELSE 0
+        END
+    ) AS Male_Count,
+    AVG(
+        CASE
+            WHEN `Customer Gender` = 'M' THEN `Customer Age`
+        END
+    ) AS Avg_Male_Age
+FROM
+    default.salesforcourse_4fe2kehu
+WHERE 
+    (
+        '{{ cmp }}' = 'No' AND 
+        toStartOfMonth(toDate(Date)) BETWEEN '{{ dates.start }}' AND '{{ dates.end }}'
+    )
+    OR
+    (
+        '{{ cmp }}' = 'With last month' AND 
+        (
+            (
+                toStartOfMonth(toDate('{{ dates.end }}')) = toStartOfMonth(toDate(addMonths(Date, -1))) 
+                AND 
+                toStartOfMonth(toDate('{{ dates.start }}')) = toStartOfMonth(toDate(Date))
+            ) 
+             OR
+            (
+        '{{ cmp }}' = 'With last month' AND 
+        (
+            (toDate(addMonths(Date, 1)) BETWEEN '{{ dates.start }}' AND '{{ dates.end }}') 
+            OR 
+            (toDate(Date) BETWEEN '{{ dates.start }}' AND '{{ dates.end }}')
+        )
+            )
+        )
+    )
+GROUP BY
+    Month,
+    Comparing,
+    Country,
+    State,
+    PCategory, 
+    SubCategory
+ORDER BY
+    Gross_Profit DESC;
 
 2.Geospatial Analysis:
 
--Geographical heatmaps showing Average Revenue per Transaction by Country
+-Geographical heatmaps showing Average Revenue per Transaction by Country (sorry, server was too slow to work woth these data)
 -Even can be a fancy Bubble map visualizing the distribution of Female Count and Male Count by geographical regions, but we don't hace lat and long:) so next time.
 
 3.Product Category Analysis:
 
 -Horizontal bar charts displaying Total Quantity and Gross Profit by Product Category.
 -Treemaps representing the hierarchy of Product Categories and Subcategories based on Gross Profit.
-Buuuuuuuuuut. i dint have Treemap in my version of Redash so i will do suburns sequence
+Buuuuuuuuuut. i dint have Treemap in my version of Redash so i provided sunburns sequence
+
+<details>
+  <summary>Click to expand SQL Code</summary>
+  
+```sql
+-- Your SQL code goes here
+WITH SequenceCTE AS (
+  SELECT
+    "Product Category" AS stage1,
+    "Sub Category" AS stage2,
+    NULL AS stage3,
+    NULL AS stage4,
+    NULL AS stage5,
+    COUNT(*) AS value
+  FROM
+    default.salesforcourse_4fe2kehu
+  WHERE 
+    toStartOfMonth(toDate("Date")) BETWEEN '{{ dates.start }}' AND '{{ dates.end }}'
+  GROUP BY
+    "Product Category",
+    "Sub Category"
+)
+SELECT
+  stage1,
+  stage2,
+  stage3,
+  stage4,
+  stage5,
+  value
+FROM
+  SequenceCTE
+ORDER BY
+  value DESC;
 
 3.Customer Demographics Analysis:
 
 -Pie charts illustrating the distribution of Female and Male customers.
 -Box plots showcasing the distribution of Average Female Age and Average Male Age across different product categories.
 
+<details>
+  <summary>Click to expand SQL Code</summary>
+  
+```sql
+-- Your SQL code goes here
+WITH GenderCounts AS (
+    SELECT
+        SUM(
+            CASE WHEN `Customer Gender` = 'F' THEN 1 ELSE 0 END
+        ) AS Female_Count,
+        SUM(
+            CASE WHEN `Customer Gender` = 'M' THEN 1 ELSE 0 END
+        ) AS Male_Count,
+        AVG(
+            CASE WHEN `Customer Gender` = 'F' THEN "Revenue" - "Cost" ELSE NULL END
+        ) AS Avg_Female_Gross_Profit,
+        AVG(
+            CASE WHEN `Customer Gender` = 'M' THEN "Revenue" - "Cost" ELSE NULL END
+        ) AS Avg_Male_Gross_Profit,
+        SUM(
+            CASE WHEN `Customer Gender` = 'F' THEN "Quantity" ELSE 0 END
+        ) AS Total_Female_Quantity,
+        SUM(
+            CASE WHEN `Customer Gender` = 'M' THEN "Quantity" ELSE 0 END
+        ) AS Total_Male_Quantity
+    FROM
+        default.salesforcourse_4fe2kehu
+    WHERE 
+        toStartOfMonth(toDate(Date)) BETWEEN '{{ dates.start }}' AND '{{ dates.end }}'
+)
+SELECT
+    'Female' AS Gender,
+    Female_Count AS Count,
+    Avg_Female_Gross_Profit AS Avg_Gross_Profit,
+    Total_Female_Quantity AS Total_Quantity
+FROM
+    GenderCounts
+
+UNION ALL
+
+SELECT
+    'Male' AS Gender,
+    Male_Count AS Count,
+    Avg_Male_Gross_Profit AS Avg_Gross_Profit,
+    Total_Male_Quantity AS Total_Quantity
+FROM
+    GenderCounts;
+
 4. Comparative Analysis:
 
-Dual-axis line charts comparing Total Quantity and Gross Profit between the Current Period and Comparative Period.
-Side-by-side bar charts displaying Total Quantity and Gross Profit for the Current Period and Comparative Period.
+*By juxtaposing metrics from different periods, our Comparative Analysis provides a comprehensive view of performance evolution, empowering stakeholders to make data-driven decisions and optimize business strategies
+-Dual-axis line charts comparing Total Quantity and Gross Profit between the Current Period and Comparative Period.
+-Side-by-side bar charts displaying Total Quantity and Gross Profit for the Current Period and Comparative Period.
+
+<details>
+  <summary>Click to expand SQL Code</summary>
+  
+```sql
+-- Your SQL code goes here
+WITH CohortCTE AS (
+    SELECT
+        toStartOfMonth(Date) AS Cohort_Month,
+        "Product Category" AS Product_Category,
+        AVG("Unit Price" - "Unit Cost") AS Avg_Profit_Margin,
+        SUM(Revenue - Cost) AS Total_Profit
+    FROM
+        default.salesforcourse_4fe2kehu
+    GROUP BY
+        Cohort_Month,
+        Product_Category
+    ORDER BY
+        Cohort_Month
+)
+
+SELECT
+    Cohort_Month,
+    Product_Category,
+    AVG(Avg_Profit_Margin) AS Avg_Profit_Margin,
+    SUM(Total_Profit) AS Total_Profit
+FROM
+    CohortCTE
+GROUP BY
+    Cohort_Month,
+    Product_Category
+ORDER BY
+    Cohort_Month;
 
 5. Overall Performance Metrics:
 
@@ -170,5 +409,35 @@ Gauges representing the percentage change in Total Quantity and Gross Profit com
 6. Customer Segmentation:
 
 -Scatter plots visualizing the relationship between Gross Profit and Customer Age, segmented by gender.
-Radar charts comparing the average Gross Profit and Total Quantity for different customer segments.
- 
+-Radar charts comparing the average Gross Profit and Total Quantity for different customer segments.
+
+So straight to conclusions:
+
+
+Customer Demographics:
+
+Majority of customers fall within the age range of 32-45 years, indicating a mature target audience.
+Gender distribution is nearly equal, with approximately 47-53 split between male and female customers.
+The average age of customers across different product categories ranges from 34 to 38 years, with the youngest customers observed in the road bikes category.
+Product Performance:
+
+Accessories emerge as the largest category of goods sold, with notable popularity in subcategories such as tires and tubes, and bottles and cages.
+Assessing metrics like Total Quantity, Revenue, and Gross Profit helps identify top-performing products or categories, offering insights into factors driving their success.
+Understanding the relationship between Unit Cost, Unit Price, and Gross Profit enables optimization of pricing strategies to enhance profitability.
+Geospatial Analysis:
+
+The US leads in terms of quantity of goods sold across all categories, while Germany boasts higher average revenue per transaction, suggesting lucrative market potential.
+Geographical heatmaps visualize revenue or sales distribution across different countries or regions, facilitating targeted marketing efforts.
+Time Series Analysis:
+
+The business witnessed significant improvement from 2015 to 2016, with Gross Profit turning consistently positive over time.
+Tracking trends in Total Quantity, Revenue, and Gross Profit helps identify seasonal patterns and long-term growth trends, enabling proactive business decisions.
+Customer Segmentation:
+
+Despite limited data, the gender distribution analysis provides insights into customer demographics, aiding in personalized marketing campaigns.
+Analyzing customer retention rates and lifetime value guides prioritization of customer acquisition and retention strategies.
+Cost Analysis:
+
+Evaluating cost distribution across product categories helps identify areas for cost optimization and potential cost-saving opportunities.
+Products with high margins and low production costs should be prioritized in marketing efforts to maximize profitability and cost-effectiveness.
+In summary, leveraging insights from customer demographics, product performance, geospatial analysis, time series analysis, customer segmentation, and cost analysis enables data-driven decision-making and strategic planning for business growth and profitability.
