@@ -41,6 +41,7 @@ I delved into SQL queries to uncover insights from the data, crafting queries th
 
 <details>
   <summary>Click to expand SQL Code</summary>
+  
 ```sql
 SELECT
     toStartOfMonth(toDate(Date)) AS Month,
