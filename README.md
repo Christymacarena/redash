@@ -43,7 +43,6 @@ I delved into SQL queries to uncover insights from the data, crafting queries th
   <summary>Click to expand SQL Code</summary>
   
 ```sql
--- Your SQL code goes here
 SELECT
     toStartOfMonth(toDate(Date)) AS Month,
     multiIf(
@@ -127,6 +126,7 @@ GROUP BY
     SubCategory
 ORDER BY
     Gross_Profit DESC;
+
 </details>
 
 ## Visualizing Insights
