@@ -40,9 +40,9 @@ One of the standout features of Redash is its multifilter functionality, allowin
 I delved into SQL queries to uncover insights from the data, crafting queries that offered valuable perspectives on business metrics.
 
 <details>
-  <summary>Click to expand SQL Code</summary> 
-```
-  sql
+  <summary>Click to expand SQL Code</summary>
+<br>
+```sql
 SELECT
     toStartOfMonth(toDate(Date)) AS Month,
     multiIf(
@@ -127,6 +127,7 @@ GROUP BY
 ORDER BY
     Gross_Profit DESC;
  ```
+<br>
 </details>
 
 ## Visualizing Insights
