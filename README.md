@@ -126,10 +126,7 @@ GROUP BY
     SubCategory
 ORDER BY
     Gross_Profit DESC;
-
-</details>
-
-<!-- Your additional text goes here -->
+<details>
 
 ## Visualizing Insights
 
