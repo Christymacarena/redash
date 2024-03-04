@@ -41,7 +41,6 @@ I delved into SQL queries to uncover insights from the data, crafting queries th
 
 <details>
   <summary>Click to expand SQL Code</summary>
-  
 ```sql
 SELECT
     toStartOfMonth(toDate(Date)) AS Month,
@@ -126,7 +125,8 @@ GROUP BY
     SubCategory
 ORDER BY
     Gross_Profit DESC;
-<details>
+</details>
+
 
 ## Visualizing Insights
 
@@ -173,6 +173,8 @@ GROUP BY
     SubCategory
 ORDER BY
     Gross_Profit DESC;
+</details>
+
 
 -Stacked bar charts comparing Total Quantity and Gross Profit between the last month and previus month
 
