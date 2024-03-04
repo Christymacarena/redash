@@ -125,7 +125,7 @@ GROUP BY
     SubCategory
 ORDER BY
     Gross_Profit DESC;
-  ```
+```
 </details>
 
 
