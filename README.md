@@ -1,21 +1,46 @@
-# redash
-My experiment to open Redash to run powerful portfolio project:)
+# Redash Portfolio Project 
 
-I decided to return for my grait research of the company i can put my energy and lovve to, so i decises to improve businecc analytica portpholio i had. I google open source dashboard creator and found Redash. Sounded nice, so i started to build the 'company' print to show my skills in the field. 
-I started with opening a local server with Docker to merge the dashboard with Data source (i still didnt have any, but i trusted in myself).
-So here we go: develope a new server ![run local server](https://github.com/Christymacarena/redash/assets/110884096/a22c9b9e-ae6a-4a43-9c15-f14d21271947)
-Everything is working now so i can go do magic on  http://localhost:5000/ of Radish
-Now time for uploading data: let start with PostgreSQL as a usual datamanager for me. But doesnt matter how many shaman dances i did - Redash could reach the 5432 port ( ![postgres](https://github.com/Christymacarena/redash/assets/110884096/eb07d941-ac43-4d1b-a7ca-9b8198d76213)
-Thanks godness of internet we can connect almost all databases to this App, so i continued with Clickhouse.
-It would be too easy if it worked from the first attemp. So after research about differences if URL and CURL of the link [click problems](https://github.com/Christymacarena/redash/assets/110884096/68f2e93c-412e-40c7-9475-9c3b6da1a9ee) i did the connection ![click](https://github.com/Christymacarena/redash/assets/110884096/d1edd5d3-8110-42c7-a171-1a352828cc18)
+## Introduction
 
-So finally we have everything connected and automatized for using this set of tools to build a company's dashboard
-![finally](https://github.com/Christymacarena/redash/assets/110884096/6852009b-b107-4dc6-9a01-b9696c2c6b34)
+In my quest to find a meaningful project to channel my energy and passion, I decided to enhance my business analytics portfolio. My search led me to discover Redash, an open-source dashboard creator. Intrigued by its capabilities, I began crafting the blueprint for a comprehensive company dashboard to showcase my skills in data analysis and visualization.
 
-The main differences i found about redish itself is those multifilers you can create to reach distinct info exactly from the edited set. which is interesting to try ![image](https://github.com/Christymacarena/redash/assets/110884096/e4752e47-bcdd-4ef8-82bb-621118fd5e37)
+## Setting Up the Environment
 
-So i try to wake my sql skills to check what we can see from data 
-"
+I kicked off by setting up a local server using Docker and seamlessly integrated it with my chosen data sources. Although I didn't have a dataset at hand initially, I was confident in my abilities to bring the project to life.
+
+<img src="https://github.com/Christymacarena/redash/assets/110884096/a22c9b9e-ae6a-4a43-9c15-f14d21271947" alt="Run Local Server" width="50%">
+
+With the local server up and running, I dove into the world of Redash, exploring its vast potential at http://localhost:5000/.
+
+## Connecting Data Sources
+
+My journey into data visualization began with PostgreSQL, my trusted companion in data management. Despite encountering some initial hiccups in connecting to the 5432 port, I persevered and successfully dismantled the connection. 
+
+<img src="https://github.com/Christymacarena/redash/assets/110884096/eb07d941-ac43-4d1b-a7ca-9b8198d76213" alt="Connect to PostgreSQL" width="50%">
+
+Determined to explore the full spectrum of possibilities, I ventured into Clickhouse. Overcoming challenges with URL and CURL configurations, I triumphed in establishing a seamless connection.
+
+<img src="https://github.com/Christymacarena/redash/assets/110884096/68f2e93c-412e-40c7-9475-9c3b6da1a9ee" alt="Connect to Clickhouse" width="50%">
+
+## Crafting the Dashboard
+
+With all systems connected and automated, I set out to leverage this powerful toolkit to construct the company's dashboard.
+
+<img src="https://github.com/Christymacarena/redash/assets/110884096/6852009b-b107-4dc6-9a01-b9696c2c6b34" alt="Dashboard Preview" width="50%">
+
+One of the standout features of Redash is its multifilter functionality, allowing users to extract precise insights from their datasets effortlessly.
+
+<img src="https://github.com/Christymacarena/redash/assets/110884096/e4752e47-bcdd-4ef8-82bb-621118fd5e37" alt="Multifilter Visualization" width="50%">
+
+## Exploring Data Insights
+
+I delved into SQL queries to uncover insights from the data, crafting queries that offered valuable perspectives on business metrics.
+
+<details>
+  <summary>Click to expand SQL Code</summary>
+  
+```sql
+-- Your SQL code goes here
 SELECT
     toStartOfMonth(toDate(Date)) AS Month,
     multiIf(
@@ -98,15 +123,23 @@ GROUP BY
     PCategory, 
     SubCategory
 ORDER BY
-    Gross_Profit DESC
-"
-Now we have some agregated values and different timelines to see a perspective of the business.
-Lets try to see maximum of it:
+    Gross_Profit DESC;
+
+## Visualizing Insights
+
+Armed with aggregated values and diverse timelines, I embarked on a journey of visualization, unlocking a wealth of insights.
 
 1. Time Series Analysis:
 
 -Line charts showing trends in Gross Profit and Total Quantity over last year - newplot png
 -Stacked bar charts comparing Total Quantity and Gross Profit between the last month and previus month newplot (1)
+
+<details>
+  <summary>Click to expand SQL Code</summary>
+  
+```sql
+-- Your SQL code goes here
+SELECT * FROM your_table;
 
 2.Geospatial Analysis:
 
@@ -134,8 +167,8 @@ Side-by-side bar charts displaying Total Quantity and Gross Profit for the Curre
 -KPI widgets showing aggregated metrics such as Total Quantity, Gross Profit, Female Count, and Male Count.
 Gauges representing the percentage change in Total Quantity and Gross Profit compared to the previous period.
 
-Customer Segmentation:
+6. Customer Segmentation:
 
-Scatter plots visualizing the relationship between Gross Profit and Customer Age, segmented by gender.
+-Scatter plots visualizing the relationship between Gross Profit and Customer Age, segmented by gender.
 Radar charts comparing the average Gross Profit and Total Quantity for different customer segments.
  
