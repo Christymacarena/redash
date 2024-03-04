@@ -138,9 +138,7 @@ Armed with aggregated values and diverse timelines, I embarked on a journey of v
 
 <details>
   <summary>Click to expand SQL Code</summary>
-  
 ```sql
--- Your SQL code goes here
 SELECT
     toStartOfMonth(toDate(Date)) AS Month,
     SUM(Quantity) AS Total_Quantity,
@@ -176,13 +174,12 @@ ORDER BY
 </details>
 
 
+
 -Stacked bar charts comparing Total Quantity and Gross Profit between the last month and previus month
 
 <details>
-  <summary>Click to expand SQL Code</summary>
-  
+  <summary>Click to expand SQL Code</summary> 
 ```sql
--- Your SQL code goes here
 SELECT
     toStartOfMonth(toDate(Date)) AS Month,
     multiIf(
@@ -282,9 +279,7 @@ Buuuuuuuuuut. i dint have Treemap in my version of Redash so i provided sunburns
 
 <details>
   <summary>Click to expand SQL Code</summary>
-  
 ```sql
--- Your SQL code goes here
 WITH SequenceCTE AS (
   SELECT
     "Product Category" AS stage1,
@@ -322,9 +317,7 @@ ORDER BY
 
 <details>
   <summary>Click to expand SQL Code</summary>
-  
 ```sql
--- Your SQL code goes here
 WITH GenderCounts AS (
     SELECT
         SUM(
@@ -357,9 +350,7 @@ SELECT
     Total_Female_Quantity AS Total_Quantity
 FROM
     GenderCounts
-
 UNION ALL
-
 SELECT
     'Male' AS Gender,
     Male_Count AS Count,
@@ -378,9 +369,7 @@ FROM
 
 <details>
   <summary>Click to expand SQL Code</summary>
-  
 ```sql
--- Your SQL code goes here
 WITH CohortCTE AS (
     SELECT
         toStartOfMonth(Date) AS Cohort_Month,
@@ -395,7 +384,6 @@ WITH CohortCTE AS (
     ORDER BY
         Cohort_Month
 )
-
 SELECT
     Cohort_Month,
     Product_Category,
