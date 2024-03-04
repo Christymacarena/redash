@@ -40,8 +40,7 @@ One of the standout features of Redash is its multifilter functionality, allowin
 I delved into SQL queries to uncover insights from the data, crafting queries that offered valuable perspectives on business metrics.
 
 <details>
-  <summary>Click to expand SQL Code</summary>
-  
+  <summary>Click to expand SQL Code</summary> 
 ```sql
 SELECT
     toStartOfMonth(toDate(Date)) AS Month,
@@ -140,6 +139,7 @@ Armed with aggregated values and diverse timelines, I embarked on a journey of v
 <details>
   <summary>Click to expand SQL Code</summary>
 ```sql
+  
 SELECT
     toStartOfMonth(toDate(Date)) AS Month,
     SUM(Quantity) AS Total_Quantity,
