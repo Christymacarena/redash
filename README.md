@@ -41,8 +41,7 @@ I delved into SQL queries to uncover insights from the data, crafting queries th
 
 <details>
   <summary>Click to expand SQL Code</summary>
-<br>
-```sql
+<pre><code>
 SELECT
     toStartOfMonth(toDate(Date)) AS Month,
     multiIf(
@@ -126,8 +125,7 @@ GROUP BY
     SubCategory
 ORDER BY
     Gross_Profit DESC;
- ```
-<br>
+</code></pre>
 </details>
 
 ## Visualizing Insights
