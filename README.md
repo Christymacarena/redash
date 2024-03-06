@@ -1,5 +1,5 @@
 # Redash Portfolio Project 
-Here is the dashboard we built, [watch and enjoy](http://localhost:5000/public/dashboards/c5ojCwJIpz885OpA5ALjdUjjhpkzqV6DLoSoT1c2?org_slug=default).
+Here is the dashboard we built, [watch and enjoy](https://drive.google.com/file/d/1t1QKyvmFrkU86kIqs9Hfb4NiThOcuaQp/view?usp=sharing).
 
 For those who have some time, here how it was..
 
