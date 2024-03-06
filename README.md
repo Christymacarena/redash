@@ -1,7 +1,8 @@
 # Redash Portfolio Project 
-Here is the dashboard we built, [watch and enjoy](https://drive.google.com/file/d/1t1QKyvmFrkU86kIqs9Hfb4NiThOcuaQp/view?usp=sharing).
+Here is the dashboard i built, [watch and enjoy](https://drive.google.com/file/d/1t1QKyvmFrkU86kIqs9Hfb4NiThOcuaQp/view?usp=sharing).
+It was beautiful and interactive, but i coudn't move the project from Localhost to Google Cloud, even if i implemented Docker correctly.. Never mind. Here is the place to grow:)
 
-For those who have some time, here how it was..
+For those who have time, here how it was..
 
 ## Introduction
 
